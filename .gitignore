@@ -1,0 +1,9 @@
+
+
+.*.sw?
+*~
+packer_cache/
+build/
+iso/
+iso
+*.box
