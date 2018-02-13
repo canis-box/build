@@ -33,9 +33,6 @@ dpkg --list \
     | grep -- '-doc$' \
     | xargs apt-get -y purge
 
-# Delete X11 libraries
-apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6
-
 # Delete obsolete networking
 apt-get -y purge ppp pppconfig pppoeconf
 
@@ -47,6 +44,8 @@ apt-get -y purge linux-firmware
 
 apt-get -y autoremove
 apt-get -y clean
+
+rm -f /home/vagrant/*.iso
 
 # Remove docs
 rm -rf /usr/share/doc/*
