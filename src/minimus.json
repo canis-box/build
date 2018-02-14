@@ -52,7 +52,8 @@
       "type": "virtualbox-iso",
       "vboxmanage": [
         [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+        [ "modifyvm", "{{.Name}}", "--cpus", "1" ],
+        [ "setextradata", "global", "GUI/SuppressMessages", "all"]
       ],
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{ user `name` }}"
@@ -73,11 +74,31 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "expect_disconnect": true,
       "scripts": [
-        "src/upgrade.sh",
-        "src/sshd.sh",
         "src/sudoers.sh",
+        "src/upgrade.sh",
+        "src/sshd.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "environment_vars": [
+        "HOME_DIR=/home/vagrant"
+      ],
+      "execute_command": "{{.Vars}} sh -eux '{{.Path}}'",
+      "expect_disconnect": true,
+      "scripts": [
         "src/minimus.sh",
-        "src/vagrant.sh",
+        "src/vagrant.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "environment_vars": [
+        "HOME_DIR=/home/vagrant"
+      ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "expect_disconnect": true,
+      "scripts": [
         "src/virtualbox.sh",
         "src/cleanup.sh",
         "src/minimize.sh"

@@ -1,6 +1,6 @@
 #!/bin/sh -eux
 
-apt-get install -y --no-install-recommends \
+sudo apt-get install -y --no-install-recommends \
   postgresql postgresql-contrib libpq-dev ruby-pg
 
 sudo -u postgres createuser --superuser vagrant

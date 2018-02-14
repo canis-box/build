@@ -28,6 +28,23 @@ src_files.each do |src_file|
       sh "vagrant box add --force --name=#{name} #{box_file}"
     end
   end
+  namespace :test do
+    desc "test the #{name} box"
+    task name => "install:#{name}" do
+      mkdir_p name
+      cd name
+      sh "vagrant up"
+      sh "vagrant ssh"
+      sh "vagrant destroy -f"
+    end
+  end
+  namespace :clean do
+    desc "remove the #{name} box"
+    task name do
+      rm_rf FileList["#{name}.virtualbox.box"]
+      rm_rf FileList["out/#{name}"]
+    end
+  end
   task build: "build:#{name}"
   task install: "install:#{name}"
   task uninstall: "uninstall:#{name}"

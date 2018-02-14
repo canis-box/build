@@ -16,7 +16,8 @@
       "ssh_wait_timeout": "10000s",
       "vboxmanage": [
         [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+        [ "modifyvm", "{{.Name}}", "--cpus", "1" ],
+        [ "setextradata", "global", "GUI/SuppressMessages", "all"]
       ],
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{ user `name` }}"

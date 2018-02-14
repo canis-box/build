@@ -1,5 +1,6 @@
 #!/bin/sh -eux
 
 # install useful packages
-# apt-get install vim-nox
+sudo apt-get install -y --no-install-recommends \
+  ruby nodejs git vim-nox
 
