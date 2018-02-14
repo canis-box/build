@@ -1,27 +1,18 @@
 #!/bin/sh -eux
 export DEBIAN_FRONTEND=noninteractive
 
-ubuntu_version="`lsb_release -r | awk '{print $2}'`";
-ubuntu_major_version="`echo $ubuntu_version | awk -F. '{print $1}'`";
+srv="http://us.archive.ubuntu.com/ubuntu"
 
-# Disable release-upgrades
-# sed -i.bak 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades;
+cat <<APT > /etc/apt/sources.list
+## configure apt to automatically use the closest mirror
+deb $srv xenial main restricted universe multiverse
+deb $srv xenial-updates main restricted universe multiverse
+deb $srv xenial-backports main restricted universe multiverse
+deb $srv xenial-security main restricted universe multiverse
+# deb $srv xenial-proposed main restricted universe multiverse
+APT
 
 # Update the package list
 apt-get -y update;
+apt-get -y upgrade;
 
-# update package index on boot
-cat <<EOF >/etc/init/refresh-apt.conf;
-description "update package index"
-start on networking
-task
-exec /usr/bin/apt-get update
-EOF
-
-# Disable periodic activities of apt
-cat <<EOF >/etc/apt/apt.conf.d/10disable-periodic;
-APT::Periodic::Enable "0";
-EOF
-
-# Upgrade all installed packages incl. kernel and kernel headers
-apt-get -y dist-upgrade -o Dpkg::Options::="--force-confnew";

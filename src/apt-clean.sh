@@ -3,8 +3,6 @@
 apt-get -y autoremove
 apt-get -y clean
 
-rm -f /home/vagrant/*.iso
-
 # Remove docs
 rm -rf /usr/share/doc/*
 
