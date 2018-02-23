@@ -104,6 +104,7 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "expect_disconnect": true,
       "scripts": [
+        "src/webkit.sh",
         "src/chrome.sh",
         "src/autologin.sh",
         "src/virtualbox.sh",
