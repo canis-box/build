@@ -8,7 +8,7 @@ CFG
 
 apt-get update
 apt-get install -y --allow-unauthenticated \
-  google-chrome-stable
+  google-chrome-stable chromium-browser chromium-chromedriver
 
 sed -i 's/^[!#]/# /' /etc/apt/sources.list.d/google-chrome.list
 
